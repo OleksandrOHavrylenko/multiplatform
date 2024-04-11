@@ -16,8 +16,8 @@ target arm: TARGETOS=linux
 target arm: TARGETARCH=arm64
 target macOS: TARGETOS=darwin
 target macOS: TARGETARCH=arm64
-target windows:	TARGETOS=windows
-target windows: TARGETARCH=386
+target Windows:	TARGETOS=windows
+target Windows: TARGETARCH=386
 
 IMAGE_TAG = ${REGESTRY}${APP}:${VERSION}-${TARGETOS}
 
@@ -56,7 +56,7 @@ macOS: format
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP}
 	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
-windows: format
+Windows: format
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP}
 	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
