@@ -45,19 +45,21 @@ build: format
 	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 Linux: format
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o ${APP}
-	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-linux-amd64
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o ${APP}	
 
 arm: format
 	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -v -o ${APP}
-	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-linux-arm64
-
+	
 macOS: format
 	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -v -o ${APP}
-	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-darwin-arm64
-
+	
 Windows: format
 	CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -v -o ${APP}
+	
+image:
+	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-linux-amd64
+	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-linux-arm64
+	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-darwin-arm64
 	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-windows-386
 
 clean: 
