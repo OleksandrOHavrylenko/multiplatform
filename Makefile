@@ -1,4 +1,4 @@
-platforms = linux arm macOS windows
+# platforms = linux arm macOS windows
 # ARCH = amd64 arm 386
 #
 # ${platforms}:
@@ -44,7 +44,13 @@ build: format
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP}
 	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
-${platforms}: build
+linux: build
+
+arm: build
+
+macOS: build
+
+windows: build
 
 clean: 
 	rm -rf ${APP}
