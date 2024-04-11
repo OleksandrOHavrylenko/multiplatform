@@ -19,6 +19,9 @@ target macOS: TARGETARCH=arm64
 target Windows:	TARGETOS=windows
 target Windows: TARGETARCH=386
 
+TARGETOS=linux
+TARGETARCH=amd64
+
 IMAGE_TAG = ${REGESTRY}${APP}:${VERSION}-${TARGETOS}
 
 #posible ARCH: amd64,arm,386
@@ -57,10 +60,10 @@ Windows: format
 	CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -v -o ${APP}
 	
 image:
-	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-linux-amd64
-	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-linux-arm64
-	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-darwin-arm64
-	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-windows-386
+	docker build . -t ${REGESTRY}${APP}:${VERSION}-linux-amd64
+	docker build . -t ${REGESTRY}${APP}:${VERSION}-linux-arm64
+	docker build . -t ${REGESTRY}${APP}:${VERSION}-darwin-arm64
+	docker build . -t ${REGESTRY}${APP}:${VERSION}-windows-386
 
 clean: 
 	rm -rf ${APP}
