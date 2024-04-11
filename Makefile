@@ -1,4 +1,4 @@
-# platforms = linux arm macOS, Windows
+platforms = linux arm macOS windows
 # ARCH = amd64 arm 386
 #
 # ${platforms}:
@@ -9,9 +9,18 @@
 
 APP=test_app
 #posible OS: linux,darwin,windows
-TARGETOS=linux
+
+target linux: TARGETOS=linux
+target linux: TARGETARCH=amd64
+target arm: TARGETOS=linux
+target arm: TARGETARCH=arm64
+target macOS: TARGETOS=darwin
+target macOS: TARGETARCH=arm64
+target windows:	TARGETOS=windows
+target windows: TARGETARCH=386
+
 #posible ARCH: amd64,arm,386
-TARGETARCH=amd64 
+
 #
 VERSION=v1.0.0
 #
@@ -34,6 +43,8 @@ build: format
 
 image:
 	docker buildx build --platform ${TARGETOS}/${TARGETARCH} . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}
+
+${platforms}: build
 
 push:
 	docker push ${REGESTRY}${APP}:${VERSION}-${TARGETOS}
