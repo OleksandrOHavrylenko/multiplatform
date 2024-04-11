@@ -44,13 +44,21 @@ build: format
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP}
 	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
-linux: build
+linux: format
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP}
+	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
-arm: build
+arm: format
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP}
+	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
-macOS: build
+macOS: format
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP}
+	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
-windows: build
+windows: format
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP}
+	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 clean: 
 	rm -rf ${APP}
