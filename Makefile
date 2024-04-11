@@ -10,8 +10,8 @@
 APP=test_app
 #posible OS: linux,darwin,windows
 
-target linux: TARGETOS=linux
-target linux: TARGETARCH=amd64
+target Linux: TARGETOS=linux
+target Linux: TARGETARCH=amd64
 target arm: TARGETOS=linux
 target arm: TARGETARCH=arm64
 target macOS: TARGETOS=darwin
@@ -44,7 +44,7 @@ build: format
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP}
 	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
-linux: format
+Linux: format
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP}
 	docker buildx build . -t ${REGESTRY}${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
